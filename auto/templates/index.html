@@ -1,0 +1,85 @@
+{%extends 'base.html'%}
+    {%block head_script %}
+<link type="text/css" href="/static/css/index.css" rel="stylesheet">
+    {%endblock head_script%}
+{% block bread_button %}
+    <li class="active"> <a href="{% url 'autoIndex:task' project%}">任务</a></li>
+    <input class="btn btn-primary btn-xs" type="button" value="添加新任务" style="display: inline;float: right;
+    margin-right: 200px" onclick="displayCreate()">
+    <!--<input class="btn btn-primary btn-xs" type="button" value="编辑项目" style="float: right; margin-right: 10px"-->
+           <!--onclick="editDate()">-->
+{% endblock bread_button %}
+{%block content%}
+<div>
+
+<table class="table table-condensed">
+    <tr><th>任务序号</th><th>任务名称</th><th>host</th><th>port</th><th>所属项目</th></tr>
+    {%for task in data%}
+
+      <tr><td>{{task.id}}</td><td>{{task.pName}}</td><td>{{task.pHost}}</td><td>{{task.pPort}}</td><td>{{ task.pProject.tName}}</td>
+      <td><p><a class="btn btn-default" href="{% url 'autoIndex:interface'  task.id %}">生成接口 &raquo;</a></p></td>
+      </tr>
+    {%endfor%}
+</table>
+</div>
+<div class="createPage" id="create_page" >
+    <div class="container">
+     <form method="post" action="{% url 'autoIndex:addTask' project %}" class="form-horizontal">
+                <h3 style="text-align: center">添加任务</h3>
+                <div class="form-group" style="margin-top: 40px">
+                    <label class="col-sm-3 control-label">任务名:</label>
+                    <div class="col-sm-7">
+                        <input type="text" class="form-control" id="id_name" name="name" placeholder="name">
+                    </div>
+                </div>
+
+                 <div class="form-group">
+                      <label class="col-sm-3 control-label">服务器名称或者ip</label>
+{#                        <div >#}
+{#                             <div class="col-xs-1">#}
+{#                                <select class="form-control" id="testPo" name="po">#}
+{#                                  <option>http://</option>#}
+{#                                  <option>https://</option>#}
+{#                                </select>#}
+{#                             </div>#}
+{#                                 <div class="col-xs-6">#}
+{#                                   <input type="text" class="form-control" id="id_host" name="host" placeholder="host">#}
+{#                                 </div>#}
+{#                            <!--</div>-->#}
+{#                        </div>#}
+                         <div class="col-sm-7">
+                        <input type="text" class="form-control" id="id_host" name="host" placeholder="host">
+                    </div>
+                 </div>
+                <div class="form-group">
+
+                    <label class="col-sm-3 control-label">端口号:</label>
+                    <div class="col-sm-7">
+                        <input type="text" class="form-control" id="id_port" name="port" placeholder="port">
+                    </div>
+                </div>
+                <div class="form-group" align="center">
+                 <input type="button" class=" btn btn-default" value="取消" name="canncl_createProject", onclick="hiddenCreate()">
+                 <input type="submit" class=" btn btn-primary" value="确定" name="submit_createProject">
+                </div>
+                {% csrf_token %}
+            </form>
+    </div>
+
+</div>
+
+    <script>
+        function displayCreate() {
+            $('#create_page').css({display:'flex'});
+        }
+
+        function hiddenCreate() {
+            $('#create_page').css({display:'none'});
+        }
+        // function editDate() {
+        //     $('#editbefore').hide();
+        //     $('#editafter').show();
+        // }
+
+    </script>
+{%endblock content%}
