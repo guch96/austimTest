@@ -3,8 +3,7 @@
 <link type="text/css" href="/static/css/index.css" rel="stylesheet">
     {%endblock head_script%}
 {% block bread_button %}
-      <li class="active"> <a href="{% url 'autoIndex:task' project%}">任务</a></li>
-     <li class="active"> <a href="{% url 'autoIndex:interface' task%}">接口</a></li>
+  <li class="active"> <a href="{% url 'autoIndex:interface' task%}">接口</a></li>
     <input class="btn btn-primary btn-xs" type="button" value="添加新接口" style="display: inline;float: right;
     margin-right: 200px" onclick="displayCreate()">
     <!--<input class="btn btn-primary btn-xs" type="button" value="编辑项目" style="float: right; margin-right: 10px"-->
@@ -14,10 +13,23 @@
 <div>
 
 <table class="table table-condensed">
-    <tr><th>接口序号</th><th>名称</th><th>url</th><th>协议</th><th>请求方式</th></tr>
+     <tr><th>序号</th><th>接口名称</th><th>url地址</th><th>协议</th><th>请求方式</th><th>状态</th></tr>
     {%for interface in data%}
 
-      <tr><td>{{interface.id}}</td><td>{{interface.iName}}</td><td>{{interface.iurl}}</td><td>{{interface.iHttp}}</td><td>{{ interface.iType}}</td></tr>
+      <tr><td>{{interface.id}}</td><td>{{interface.iName}}</td><td>{{interface.iurl}}</td><td>{{interface.iHttp}}</td><td>{{ interface.iType}}</td>
+
+          <td>
+              {%if interface.iStatus == 0 %}
+                  <div class="label label-debug">未通过</div>
+              {%elif interface.iStatus == 1 %}
+                    <div class="label label-success">通过</div>
+              {%elif interface.iStatus == 2 %}
+                <div class="label label-primary">申请中</div>
+              {%endif %}
+
+
+          </td>
+      </tr>
     {%endfor%}
 </table>
 </div>
@@ -50,7 +62,7 @@
                     </div>
                     <label class="col-sm-3 control-label">请求方式:</label>
                     <div class="col-xs-2">
-                               <select class="form-control" id="iHttp" name="iHttp">
+                               <select class="form-control" id="iType" name="iType">
                                     <option>GET</option>
                                     <option>POST</option>
                                     <option>HEAD</option>

@@ -3,11 +3,10 @@
 <link type="text/css" href="/static/css/index.css" rel="stylesheet">
     {%endblock head_script%}
 {% block bread_button %}
-    <li class="active"> <a href="{% url 'autoIndex:task' project%}">任务</a></li>
+    <li><a href="{% url 'autoIndex:home' %}">项目</a></li>
+    <li class="active">任务</li>
     <input class="btn btn-primary btn-xs" type="button" value="添加新任务" style="display: inline;float: right;
     margin-right: 200px" onclick="displayCreate()">
-    <!--<input class="btn btn-primary btn-xs" type="button" value="编辑项目" style="float: right; margin-right: 10px"-->
-           <!--onclick="editDate()">-->
 {% endblock bread_button %}
 {%block content%}
 <div>
@@ -35,18 +34,6 @@
 
                  <div class="form-group">
                       <label class="col-sm-3 control-label">服务器名称或者ip</label>
-{#                        <div >#}
-{#                             <div class="col-xs-1">#}
-{#                                <select class="form-control" id="testPo" name="po">#}
-{#                                  <option>http://</option>#}
-{#                                  <option>https://</option>#}
-{#                                </select>#}
-{#                             </div>#}
-{#                                 <div class="col-xs-6">#}
-{#                                   <input type="text" class="form-control" id="id_host" name="host" placeholder="host">#}
-{#                                 </div>#}
-{#                            <!--</div>-->#}
-{#                        </div>#}
                          <div class="col-sm-7">
                         <input type="text" class="form-control" id="id_host" name="host" placeholder="host">
                     </div>

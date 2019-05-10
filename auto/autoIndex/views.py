@@ -59,12 +59,16 @@ def addInterface(request,task_id):
     task=testTask.objects.get(pk=task_id)
     if request.method=='POST':
         form=formInterface(request.POST)
+        # print(form)
         if form.is_valid():
-            t=testInterface
-            t.iHttp=form['iHttp']
-            t.iName=form['iName']
-            t.iType=form['iType']
-            t.iurl=form['iurl']
+
+            formInfo=form.cleaned_data
+            print formInfo
+            t = testInterface()
+            t.iHttp=formInfo['iHttp']
+            t.iName=formInfo['iName']
+            t.iType=formInfo['iType']
+            t.iurl=formInfo['iurl']
             t.iTask=task
             t.save()
     return HttpResponseRedirect(reverse('autoIndex:interface',args=(task_id,)))
