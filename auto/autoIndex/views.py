@@ -3,12 +3,12 @@ from __future__ import unicode_literals
 
 from django.shortcuts import render
 
-from .models import testProject,testTask,testInterface
+from .models import testProject,testTask,testInterface,apiBody,apiParams,apiHeader
 from .forms import formProject,formTask,formInterface
 from django.shortcuts import redirect
 from django.core.urlresolvers import reverse
 # Create your views here.
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect,JsonResponse
 def home(request):
     list=testProject.objects.all()
     return render(request,'home.html',{'data':list})
@@ -27,7 +27,10 @@ def interface(request,task_id):
 
     return render(request, 'interface.html', {'data': list,
                                           'task': task_id
-                                          })
+
+                                        })
+from django.views.decorators.csrf import csrf_exempt
+@csrf_exempt
 def addProject(request):
     if request.method=='POST':
         form = formProject(request.POST)
@@ -72,3 +75,12 @@ def addInterface(request,task_id):
             t.iTask=task
             t.save()
     return HttpResponseRedirect(reverse('autoIndex:interface',args=(task_id,)))
+
+def apiContent(request,api_id):
+    api=testInterface.objects.get(pk=api_id)
+    # params=apiParams.objects.filter(apiId=api)
+    # header=apiParams.objects.filter(apiId=api)
+    # body= apiBoby.objects.filter(apiId=api)
+    return render(request,'content.html',{
+        'apiData':api
+    })

@@ -23,5 +23,6 @@ urlpatterns = [
     url(r'^api/addProject', views.addProject,name='addProject'),
     url(r'^api/addTask/(\d+)', views.addTask, name='addTask'),
     url(r'^api/addInterface/(\d+)', views.addInterface,name='addInterface'),
+    url(r'^api/content/(\d+)', views.apiContent,name='content'),
 
 ]

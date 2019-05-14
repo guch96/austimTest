@@ -1,0 +1,49 @@
+{%extends 'base.html'%}
+    {%block head_script %}
+<link type="text/css" href="/static/css/index.css" rel="stylesheet">
+
+
+    {%endblock head_script%}
+{% block bread_button %}
+    <li><a href="{% url 'autoIndex:home' %}">项目</a></li>
+    <li class="active">任务</li>
+{% endblock bread_button %}
+{%block content%}
+    <div class="container">
+      <h3 style="text-align: center">调试接口</h3>
+        <div><span class="label label-primary ">api</span> {{ apiData.iName }}</div>
+        <div><span class="label label-primary">路径</span> {{apiData.iurl }}</div>
+        <div><span class="label label-primary">协议</span> {{ apiData.iHttp }}</div>
+        <div><span class="label label-primary">请求类型</span>    {{ apiData.iType }}</div>
+
+       <div class="row">
+            <div class="form-inline" id="headers">
+                <h4>Headers</h4>
+                  <button class="btn btn-default" id="addheaders">录入请求头</button>
+                <div class="headerParams" style="display: none" id="headerParams">
+                    <input name="headKey" type="text" class="form-control" placeholder="key" />
+                    <input name="headValue" type="text" class="form-control" placeholder="value" />
+                    <button class="addHeader btn btn-primary " >+</button>
+                </div>
+                <div class="opt">
+                </div>
+            </div>
+        </div>
+        <div class="row">
+        <h4>Body</h4>
+        <div class="form-inline">
+
+
+             <input type="radio" name='bodyType' value="raw"/> raw
+             <input type="radio" name='bodyType' value="form-data"/> form-data
+             <input type="radio" name='bodyType' value="x-www-form-urlencoded"/> x-www-form-urlencoded
+        </div>
+        </div>
+        <div class="bodyinfo1">
+        </div>
+        <div class="bodyinfo2">
+        </div>
+    </div>
+ <script src="/static/js/content.js"></script>
+
+{%endblock content%}
